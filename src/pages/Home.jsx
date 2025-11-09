@@ -1,70 +1,83 @@
-// src/component/JobForm.jsx
+// src/pages/Home.jsx
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router";
+import Spinner from "../component/Spinner";
 
-export default function Home() {
+
+export default function AllJobs() {
   const [jobs, setJobs] = useState([]);
-
+  const [loading, setLoading] = useState(true);
+console.log(jobs)
   useEffect(() => {
-    axios.get("http://localhost:3000/alljobs")
-      .then(res => setJobs(res.data))
-      .catch(err => console.error(err));
+    axios
+      .get("http://localhost:3000/alljobs")
+      .then((res) => {
+        setJobs(res.data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error("Error fetching jobs:", err);
+        setLoading(false);
+      });
   }, []);
 
+  if (loading) return <Spinner />;
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      {/* Navbar */}
-      <header className="flex justify-between items-center p-4 bg-white shadow-md">
-        <h1 className="text-2xl font-bold text-blue-600">FreelancerMarket</h1>
-        <nav className="space-x-6">
-          <a href="/" className="hover:text-blue-500">Home</a>
-          <a href="/jobs" className="hover:text-blue-500">Jobs</a>
-          <a href="/post-job" className="hover:text-blue-500">Post a Job</a>
-          <a href="/login" className="hover:text-blue-500">Login</a>
-        </nav>
-      </header>
+    <div className="max-w-7xl mx-auto px-4 py-10">
+      <h2 className="text-3xl font-bold mb-8 text-gray-800 text-center">
+        All Available Jobs 💼
+      </h2>
 
-      {/* Hero Section */}
-      <section className="flex flex-col md:flex-row items-center justify-between p-10 bg-blue-100">
-        <div className="space-y-4 max-w-lg">
-          <h2 className="text-4xl font-bold">Find the perfect freelancer for your project</h2>
-          <p className="text-gray-700">
-            Connect with skilled freelancers across web development, marketing, design, and more.
-          </p>
-          <div className="space-x-4">
-            <button className="bg-blue-600 text-white px-4 py-2 rounded-xl">Browse Jobs</button>
-            <button className="border border-blue-600 text-blue-600 px-4 py-2 rounded-xl">Post a Job</button>
-          </div>
-        </div>
-        <img
-          src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
-          alt="freelancer"
-          className="w-80 mt-6 md:mt-0"
-        />
-      </section>
+      <div className="overflow-x-auto shadow-lg border border-gray-100 rounded-lg bg-white">
+        <table className="min-w-full border-collapse">
+          <thead className="bg-green-600 text-white">
+            <tr>
+              <th className="py-3 px-4 text-left">Cover</th>
+              <th className="py-3 px-4 text-left">Title</th>
+              <th className="py-3 px-4 text-left">Category</th>
+              <th className="py-3 px-4 text-left">Posted By</th>
+              <th className="py-3 px-4 text-left">Summary</th>
+              <th className="py-3 px-4 text-center">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {jobs.map((job, index) => (
+              <tr
+                key={job._id || index}
+                className="border-b hover:bg-gray-50 transition duration-200"
+              >
+                <td className="py-3 px-4">
+                  <img
+                    src={job.coverImage}
+                    alt={job.title}
+                    className="w-16 h-16 object-cover rounded-md shadow-sm"
+                  />
+                </td>
+                <td className="py-3 px-4 font-semibold text-gray-800">{job.title}</td>
+                <td className="py-3 px-4 text-gray-600">{job.category}</td>
+                <td className="py-3 px-4 text-gray-600">{job.postedBy}</td>
+                <td className="py-3 px-4 text-gray-500 truncate max-w-xs">
+                  {job.summary?.slice(0, 70)}...
+                </td>
+                <td className="py-3 px-4 text-center">
+                  <Link
+                    to={`/alljobs/${job._id}`}
+                    className="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition"
+                  >
+                    View Details
+                  </Link>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
-      {/* Featured Jobs */}
-      <section className="p-10">
-        <h3 className="text-2xl font-semibold mb-6">Latest Jobs</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {jobs.map((job, idx) => (
-            <div key={idx} className="bg-white shadow-md rounded-xl p-6 hover:shadow-lg transition">
-              <img src={job.coverImage} alt={job.title} className="h-40 w-full object-cover rounded-md mb-3" />
-              <h4 className="text-xl font-bold">{job.title}</h4>
-              <p className="text-gray-600">{job.category}</p>
-              <p className="text-sm text-gray-500 mt-1">
-                Posted by {job.postedBy} — {new Date(job.postedDate).toLocaleDateString()}
-              </p>
-              <button className="mt-4 text-blue-600 hover:underline">View Details →</button>
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="text-center p-4 bg-gray-200 text-gray-600 mt-10">
-        © 2025 FreelancerMarket — All Rights Reserved
-      </footer>
+        {jobs.length === 0 && (
+          <p className="text-center py-10 text-gray-500">No jobs available yet.</p>
+        )}
+      </div>
     </div>
   );
 }
