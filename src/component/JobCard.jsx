@@ -1,3 +1,4 @@
+// src/component/JobCard.jsx
 import React from 'react';
 
 const JobCard = () => {

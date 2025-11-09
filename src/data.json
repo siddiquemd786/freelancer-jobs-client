@@ -1,0 +1,111 @@
+[
+  {
+    "title": "Frontend Developer",
+    "postedBy": "Rafiul Hasan",
+    "category": "Web Development",
+    "summary": "Looking for a React developer to build responsive websites.",
+    "coverImage": "https://t3.ftcdn.net/jpg/02/92/88/72/360_F_292887204_2wH041phSQo70eqaE9GRqFvn5MmQ4B8w.jpg",
+    "userEmail": "rafiul.hasan@example.com",
+    "postedDate": "2025-11-09T10:15:00Z"
+  },
+  {
+    "title": "Digital Marketing Specialist",
+    "postedBy": "Nusrat Jahan",
+    "category": "Digital Marketing",
+    "summary": "Need an expert to manage Facebook and Google Ads campaigns.",
+    "coverImage": "https://www.reliablesoft.net/wp-content/uploads/2023/10/seo-digital-marketing-scaled.webp",
+    "userEmail": "nusrat.jahan@example.com",
+    "postedDate": "2025-11-08T18:40:00Z"
+  },
+  {
+    "title": "Graphic Designer",
+    "postedBy": "Tanvir Alam",
+    "category": "Graphics Designing",
+    "summary": "Creative designer needed for brand identity projects.",
+    "coverImage": "https://img.freepik.com/premium-vector/vector-man-working-computer-graphic-designing-with-pen-tool_1272652-757.jpg?semt=ais_hybrid&w=740&q=80",
+    "userEmail": "tanvir.alam@example.com",
+    "postedDate": "2025-11-07T09:25:00Z"
+  },
+  {
+    "title": "Backend Developer (Node.js)",
+    "postedBy": "Sharmin Akter",
+    "category": "Web Development",
+    "summary": "Hiring backend engineer experienced in Express and MongoDB.",
+    "coverImage": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRndI_XHriZywCPUSAL4OfDHiUWzG680sG9zQ&s",
+    "userEmail": "sharmin.akter@example.com",
+    "postedDate": "2025-11-06T16:10:00Z"
+  },
+  {
+    "title": "SEO Expert",
+    "postedBy": "Mahmudul Hasan",
+    "category": "Digital Marketing",
+    "summary": "Optimize website rankings and improve organic traffic.",
+    "coverImage": "https://www.digitalvidya.com/blog/wp-content/uploads/2017/03/seo_expert_banner.jpg",
+    "userEmail": "mahmudul.hasan@example.com",
+    "postedDate": "2025-11-05T14:50:00Z"
+  },
+  {
+    "title": "UI/UX Designer",
+    "postedBy": "Rashed Karim",
+    "category": "Graphics Designing",
+    "summary": "Design modern and user-friendly interfaces for web apps.",
+    "coverImage": "https://res.cloudinary.com/upwork-cloud/image/upload/c_scale,w_1000/v1708010138/catalog/1509904542043336704/t3ddpheq48qpu1rpitoq.webp",
+    "userEmail": "rashed.karim@example.com",
+    "postedDate": "2025-11-04T11:00:00Z"
+  },
+  {
+    "title": "WordPress Developer",
+    "postedBy": "Farhana Akter",
+    "category": "Web Development",
+    "summary": "Customize WordPress themes and develop eCommerce sites.",
+    "coverImage": "https://cedcommerce.com/blog/wp-content/uploads/2021/10/hire-wordpress-twitter-og.jpg",
+    "userEmail": "farhana.akter@example.com",
+    "postedDate": "2025-11-03T08:35:00Z"
+  },
+  {
+    "title": "Content Writer",
+    "postedBy": "Mehedi Hasan",
+    "category": "Digital Marketing",
+    "summary": "Create engaging SEO-friendly blog content and ad copies.",
+    "coverImage": "https://www.joshtalks.com/joshkosh/wp-content/uploads/2018/12/Content-writer-1068x561.jpg",
+    "userEmail": "mehedi.hasan@example.com",
+    "postedDate": "2025-11-02T15:20:00Z"
+  },
+  {
+    "title": "Video Editor",
+    "postedBy": "Sadia Rahman",
+    "category": "Graphics Designing",
+    "summary": "Looking for a video editor for YouTube and social media content.",
+    "coverImage": "https://sm.pcmag.com/pcmag_uk/gallery/t/the-best-o/the-best-online-video-editors-for-2025_9qxu.jpg",
+    "userEmail": "sadia.rahman@example.com",
+    "postedDate": "2025-11-02T19:55:00Z"
+  },
+  {
+    "title": "MERN Stack Developer",
+    "postedBy": "Aminul Islam",
+    "category": "Web Development",
+    "summary": "Full-stack developer needed for MERN-based projects.",
+    "coverImage": "https://itechnasik.com/wp-content/uploads/2023/11/Mern-Stack-Developer.png",
+    "userEmail": "aminul.islam@example.com",
+    "postedDate": "2025-11-01T13:45:00Z"
+  },
+  {
+    "title": "Social Media Manager",
+    "postedBy": "Sumaiya Khatun",
+    "category": "Digital Marketing",
+    "summary": "Handle all social media platforms and run ad campaigns.",
+    "coverImage": "https://i.ibb.co/bcd111/socialmedia.jpg",
+    "userEmail": "sumaiya.khatun@example.com",
+    "postedDate": "2025-10-31T10:00:00Z"
+  },
+  {
+    "title": "Logo Designer",
+    "postedBy": "Hasibul Karim",
+    "category": "Graphics Designing",
+    "summary": "Design creative logos for startups and agencies.",
+    "coverImage": "https://assets.designhill.com/design-blog/wp-content/uploads/2014/08/Expert-Custom-Logo-Designer.png",
+    "userEmail": "hasibul.karim@example.com",
+    "postedDate": "2025-10-30T09:30:00Z"
+  }
+ 
+]
