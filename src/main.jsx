@@ -31,7 +31,11 @@ const router = createBrowserRouter([
       },{
        path: "/jobs",
   element: <AllJobs />,
-},
+},{
+  path: "/my-accepted-tasks",
+  element: <MyAcceptedTasks />,
+}
+
 
     ],
   },

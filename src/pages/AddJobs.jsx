@@ -1,91 +1,101 @@
-// src/pages/AddJobs.jsx
-import { useState } from "react";
+import React, { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const AddJobs = () => {
-  const [job, setJob] = useState({
-    title: "",
-    category: "",
-    budget: "",
-    description: "",
-  });
+  const { user } = useContext(AuthContext);
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setJob({ ...job, [name]: value });
-  };
-
-  const handleSubmit = (e) => {
+  const handleAddJob = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setSuccess(false);
 
-    fetch("http://localhost:3000/jobs", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(job),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.insertedId) {
-          alert("✅ Job added successfully!");
-        } else {
-          alert("Something went wrong!");
-        }
-      })
-      .catch((err) => console.error(err));
+    const form = e.target;
+    const title = form.title.value;
+    const category = form.category.value;
+    const description = form.description.value;
+    const budget = parseFloat(form.budget.value);
+    const image = form.image.value;
+    const email = user?.email || "guest@example.com";
+
+    const newJob = { title, category, description, budget, image, email };
+
+    try {
+      const res = await fetch("http://localhost:3000/addJob", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(newJob),
+      });
+
+      if (res.ok) {
+        setSuccess(true);
+        form.reset();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <section className="max-w-lg mx-auto py-10 px-6 bg-white rounded-xl shadow-md mt-10">
-      <h2 className="text-2xl font-bold text-center mb-6 text-indigo-700">
-        Create a New Job
+    <div className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
+      <h2 className="text-2xl font-bold text-center text-indigo-700 mb-4">
+        Add a New Job
       </h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
+
+      <form onSubmit={handleAddJob} className="space-y-4">
         <input
           type="text"
           name="title"
           placeholder="Job Title"
-          value={job.title}
-          onChange={handleChange}
-          className="w-full border p-2 rounded-md"
           required
+          className="input input-bordered w-full"
         />
         <input
           type="text"
           name="category"
           placeholder="Category"
-          value={job.category}
-          onChange={handleChange}
-          className="w-full border p-2 rounded-md"
           required
+          className="input input-bordered w-full"
         />
         <input
           type="number"
           name="budget"
           placeholder="Budget (USD)"
-          value={job.budget}
-          onChange={handleChange}
-          className="w-full border p-2 rounded-md"
           required
+          className="input input-bordered w-full"
+        />
+        <input
+          type="text"
+          name="image"
+          placeholder="Image URL"
+          required
+          className="input input-bordered w-full"
         />
         <textarea
           name="description"
           placeholder="Job Description"
-          value={job.description}
-          onChange={handleChange}
-          className="w-full border p-2 rounded-md"
-          rows="4"
           required
+          className="textarea textarea-bordered w-full"
         ></textarea>
 
         <button
           type="submit"
-          className="bg-indigo-600 text-white w-full py-2 rounded-md hover:bg-indigo-700 transition"
+          disabled={loading}
+          className="btn btn-primary w-full bg-indigo-600 hover:bg-indigo-700 text-white"
         >
-          Add Job
+          {loading ? "Adding..." : "Add Job"}
         </button>
       </form>
-    </section>
+
+      {success && (
+        <p className="text-green-600 text-center mt-3">
+          ✅ Job added successfully!
+        </p>
+      )}
+    </div>
   );
 };
 
