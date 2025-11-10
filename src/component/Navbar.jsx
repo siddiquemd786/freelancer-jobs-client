@@ -19,7 +19,7 @@ export default function Navbar() {
   };
   const navItems = [
     { name: "Home", path: "/" },
-    { name: "All Jobs", path: "/" },
+    { name: "All Jobs", path: "/jobs" },
     { name: "Add a Job", path: "/addjob" },
     { name: "My Accepted Tasks", path: "/my-accepted-tasks" },
   ];
