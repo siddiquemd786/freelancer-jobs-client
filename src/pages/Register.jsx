@@ -1,13 +1,10 @@
-// src/pages/Register.jsx
-import React, { useState, useContext } from "react";
-
-import { Link, useNavigate } from "react-router";
+import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-
+import { Link, useNavigate } from "react-router";
 
 
 const Register = () => {
-  const { createUser, updateUserProfile, googleLogin } =useContext (AuthContext)
+  const { createUser, updateUserProfile, googleLogin } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [form, setForm] = useState({

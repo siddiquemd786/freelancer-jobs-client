@@ -1,92 +1,160 @@
 // src/pages/Login.jsx
-import React from 'react';
-import { useState } from 'react';
+import React, { useState, useContext } from "react";
 
+
+
+import { FaEye, FaEyeSlash } from "react-icons/fa";
+
+import { AuthContext } from "../context/AuthContext";
+import { Link, useLocation, useNavigate } from "react-router";
+import toast from "react-hot-toast";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
+  const { loginUser, resetPassword, googleLogin } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const redirectPath = location.state?.from?.pathname || "/";
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [form, setForm] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) =>
+    setForm({ ...form, [e.target.name]: e.target.value });
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setError('');
 
-    if (!email || !password) {
-      setError('Please fill in all fields.');
+    if (!form.email || !form.password) {
+      toast.error("Please fill all fields!");
       return;
     }
 
     setLoading(true);
-    setTimeout(() => {
+    try {
+      await loginUser(form.email, form.password);
+      toast.success("Login successful!");
+      navigate(redirectPath);
+    } catch {
+      toast.error("Invalid email or password!");
+    } finally {
       setLoading(false);
-      if (email === 'admin@example.com' && password === '123456') {
-        alert('Login successful!');
-      } else {
-        setError('Invalid email or password.');
-      }
-    }, 1000);
+    }
   };
 
+  const handleForgotPassword = async () => {
+    if (!form.email) {
+      toast.error("Enter email first!");
+      return;
+    }
 
-    return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-100 via-sky-50 to-purple-100 p-6">
-      <div className="bg-white rounded-3xl shadow-2xl p-10 w-full max-w-md border border-slate-100">
-        <h2 className="text-3xl font-semibold text-slate-800 mb-1 text-center">Welcome Back 👋</h2>
-        <p className="text-slate-500 text-center mb-6">Sign in to access your account</p>
+    try {
+      await resetPassword(form.email);
+      toast.success("Password reset mail sent!");
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
 
-        {error && (
-          <div className="bg-red-50 text-red-600 border border-red-200 rounded-lg px-4 py-3 mb-4 text-sm">
-            {error}
-          </div>
-        )}
+  const handleGoogleSignIn = async () => {
+    try {
+      await googleLogin();
+      toast.success("Logged in with Google!");
+      navigate(redirectPath);
+    } catch {
+      toast.error("Google login failed!");
+    }
+  };
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block text-sm text-slate-700 mb-1">Email</label>
+  return (
+    <div className="min-h-screen flex items-center justify-center  mt-8 px-4">
+      <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md border">
+
+        <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
+          Welcome Back 👋
+        </h2>
+
+        <form onSubmit={handleSubmit}>
+
+         
+          <div className="mb-4">
+            <label className="block font-semibold mb-1">Email</label>
             <input
               type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              name="email"
+              value={form.email}
+              onChange={handleChange}
               placeholder="you@example.com"
-              className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-300"
+              className="input input-bordered w-full"
             />
           </div>
 
-          <div>
-            <div className="flex justify-between mb-1">
-              <label className="text-sm text-slate-700">Password</label>
-              <a href="#" className="text-sm text-indigo-600 hover:underline">Forgot password?</a>
+        
+          <div className="mb-4">
+            <label className="block font-semibold mb-1">Password</label>
+            <div className="relative">
+              <input
+                type={showPassword ? "text" : "password"}
+                name="password"
+                value={form.password}
+                onChange={handleChange}
+                placeholder="••••••••"
+                className="input input-bordered w-full"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-3 top-3 text-gray-600"
+              >
+                {showPassword ? <FaEyeSlash size={18} /> : <FaEye size={18} />}
+              </button>
             </div>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Enter password"
-              className="w-full border border-slate-200 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-indigo-300"
-            />
           </div>
 
+        
+          <div className="flex justify-end mb-4">
+            <button
+              type="button"
+              onClick={handleForgotPassword}
+              className="text-sm text-blue-600 hover:underline"
+            >
+              Forgot Password?
+            </button>
+          </div>
+
+         
           <button
             type="submit"
             disabled={loading}
-            className={`w-full py-3 rounded-xl font-medium text-white transition-all duration-300 shadow-md focus:ring-2 focus:ring-indigo-300 ${
-              loading ? 'bg-indigo-400 cursor-not-allowed' : 'bg-gradient-to-r from-indigo-600 to-purple-500 hover:opacity-90'
-            }`}
+            className="w-full btn btn-primary font-semibold"
           >
-            {loading ? 'Signing in...' : 'Sign In'}
+            {loading ? "Loading..." : "Login"}
           </button>
+
+      
+          <div className="divider">OR</div>
+          <button
+            onClick={handleGoogleSignIn}
+            type="button"
+            className="btn btn-outline w-full flex items-center gap-2"
+          >
+            <FcGoogle size={22} />
+            Continue with Google
+          </button>
+
+        
+          <p className="text-center text-gray-500 mt-4">
+            New here?{" "}
+            <Link to="/register" className="text-blue-600 hover:underline">
+              Create an account
+            </Link>
+          </p>
         </form>
 
-        <div className="mt-6 text-center text-sm text-slate-500">
-          Don’t have an account?{' '}
-          <a href="#" className="text-indigo-600 hover:underline font-medium">Register</a>
-        </div>
       </div>
     </div>
   );
-}
+};
 
-export default Login
+export default Login;
