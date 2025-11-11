@@ -2,7 +2,7 @@
 import React from 'react';
 
 const JobCard = ({job}) => {
-    const {coverImage,title,category,description,price}=job
+    const {coverImage,title,category,description,price,date}=job
     return (
         <div className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition">
       <img
@@ -15,7 +15,7 @@ const JobCard = ({job}) => {
         <h2 className="text-xl font-semibold text-indigo-700">{title}</h2>
         <p className="text-gray-500 text-sm mb-2">{category}</p>
         <p className="text-gray-700 text-sm mb-3 line-clamp-2">{description}</p>
-        <p className="text-indigo-600 font-bold">${price}</p>
+        <p className="text-indigo-600 font-bold">{date}</p>
       </div>
     </div>
     );

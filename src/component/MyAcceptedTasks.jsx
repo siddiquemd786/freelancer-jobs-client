@@ -1,15 +1,13 @@
+// src/component/MyAcceptedTasks.jsx
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
-
 import { toast } from "react-hot-toast";
-import ConfirmModal from "../component/ConfirmModal";
 import { AuthContext } from "../context/AuthContext";
 
 const MyAcceptedTasks = () => {
   const { user } = useContext(AuthContext);
   const [tasks, setTasks] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [modalTask, setModalTask] = useState(null); // task to delete
 
   const fetchTasks = async () => {
     setLoading(true);
@@ -30,20 +28,22 @@ const MyAcceptedTasks = () => {
     if (user?.email) fetchTasks();
   }, [user]);
 
-  const handleDelete = async () => {
+  // Handle DONE or CANCEL (removes task)
+  const handleAction = async (taskId, actionType) => {
     try {
-      await axios.delete(`http://localhost:3000/acceptedTasks/${modalTask._id}`);
-      toast.success("✅ Task removed successfully!");
-      fetchTasks();
+      await axios.delete(`http://localhost:3000/acceptedTasks/${taskId}`);
+      setTasks((prev) => prev.filter((task) => task._id !== taskId));
+      toast.success(
+        actionType === "done" ? "✅ Task marked as done!" : "❌ Task cancelled!"
+      );
     } catch (err) {
       console.error(err);
-      toast.error("❌ Failed to remove task.");
-    } finally {
-      setModalTask(null);
+      toast.error("❌ Failed to update task.");
     }
   };
 
-  if (loading) return <p className="text-center py-20">Loading accepted tasks...</p>;
+  if (loading)
+    return <p className="text-center py-20">Loading accepted tasks...</p>;
 
   return (
     <section className="py-16 px-6 bg-gray-50 min-h-screen">
@@ -58,44 +58,38 @@ const MyAcceptedTasks = () => {
           {tasks.map((task) => (
             <div
               key={task._id}
-              className="bg-white rounded-xl shadow-md overflow-hidden p-4 space-y-2"
+              className="bg-white rounded-xl shadow-md overflow-hidden p-4 space-y-2 transition hover:scale-105 duration-200"
             >
               <img
-                src={task.coverImage || `https://picsum.photos/seed/${task._id}/600/400`}
+                src={
+                  task.coverImage ||
+                  `https://picsum.photos/seed/${task._id}/600/400`
+                }
                 alt={task.title}
                 className="h-40 w-full object-cover rounded-lg"
               />
-              <h3 className="text-lg font-semibold text-gray-800">{task.title}</h3>
+              <h3 className="text-lg font-semibold text-gray-800">
+                {task.title}
+              </h3>
               <p className="text-sm text-indigo-600">{task.category}</p>
               <p className="text-gray-600 text-sm line-clamp-3">{task.summary}</p>
               <div className="flex gap-2 mt-4">
-                <a
-                  href={`/update-job/${task.jobId}`}
-                  className="bg-green-600 text-white px-3 py-1 rounded hover:bg-green-700 text-sm"
-                >
-                  Edit
-                </a>
                 <button
-                  onClick={() => setModalTask(task)}
-                  className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm"
+                  onClick={() => handleAction(task._id, "done")}
+                  className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm flex-1 flex justify-center items-center gap-1"
                 >
-                  Remove
+                  ✅ Done
+                </button>
+                <button
+                  onClick={() => handleAction(task._id, "cancel")}
+                  className="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm flex-1 flex justify-center items-center gap-1"
+                >
+                  ❌ Cancel
                 </button>
               </div>
             </div>
           ))}
         </div>
-      )}
-
-      {/* Confirmation Modal */}
-      {modalTask && (
-        <ConfirmModal
-          isOpen={!!modalTask}
-          title="Confirm Removal"
-          message="Are you sure you want to remove this accepted task?"
-          onConfirm={handleDelete}
-          onCancel={() => setModalTask(null)}
-        />
       )}
     </section>
   );

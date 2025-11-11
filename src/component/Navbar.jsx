@@ -28,7 +28,7 @@ export default function Navbar() {
   return (
     <nav className="bg-gradient-to-r from-[#030B18] to-[#081C34] shadow-lg sticky top-0 z-50 text-white">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-        <Link to="/" className="text-2xl font-extrabold text-[#00C4FF]">aiNexa</Link>
+        <Link to="/" className="text-2xl font-extrabold text-[#00C4FF]"> <img className="w-10 h-10 rounded-full" src="https://logomakerr.ai/uploads/output/2020/02/01/b6102a2551c0b3cd2c13daaeab843f50.jpg" alt="" />  </Link>
 
         <div className="hidden md:flex items-center bg-[#0B223D]/80 rounded-full px-6 py-2 shadow-inner">
           {navItems.map((item) => (

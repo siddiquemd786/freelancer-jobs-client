@@ -38,7 +38,7 @@ const Banner = () => {
               Create a Job
             </button>
           </Link>
-          <Link to="/jobs">
+          <Link to="/alljobs">
             <button className="border-2 border-white font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-indigo-700 transition-all">
               Explore Jobs
             </button>
