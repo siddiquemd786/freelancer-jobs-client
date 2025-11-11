@@ -10,6 +10,9 @@ import Login from './pages/Login.jsx';
 import Register from './pages/Register.jsx';
 import AuthProvider from './context/AuthProvider.jsx';
 import AllJobs from './pages/AllJobs.jsx';
+import MyAcceptedTasks from './component/MyAcceptedTasks.jsx';
+import JobDetails from './component/JobDetails.jsx';
+import PrivateRoute from './pages/PrivateRoute.jsx';
 
 
 const router = createBrowserRouter([
@@ -32,9 +35,22 @@ const router = createBrowserRouter([
        path: "/jobs",
   element: <AllJobs />,
 },{
+  path: "/allJobs/:id",
+  element: (
+    <PrivateRoute>
+      <JobDetails />
+    </PrivateRoute>
+  ),
+},
+{
   path: "/my-accepted-tasks",
-  element: <MyAcceptedTasks />,
+  element: (
+    <PrivateRoute>
+      <MyAcceptedTasks />
+    </PrivateRoute>
+  ),
 }
+
 
 
     ],

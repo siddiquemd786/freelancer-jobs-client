@@ -1,15 +1,13 @@
 // src/pages/AllJobs.jsx
-
 import { useEffect, useState } from "react";
-import { Link } from "react-router";
 import axios from "axios";
-import JobCard from "../component/JobCard";
+import JobsGrid from "../component/JobsGrid";
 
 const AllJobs = () => {
   const [jobs, setJobs] = useState([]);
   const [loading, setLoading] = useState(true);
 
- useEffect(() => {
+  useEffect(() => {
     axios
       .get("http://localhost:3000/alljobs")
       .then((res) => {
@@ -22,7 +20,7 @@ const AllJobs = () => {
       });
   }, []);
 
-  if (loading) return <p className="text-center py-20">Loading jobs...</p>;
+  if (loading) return <p className="text-center py-20"><span className="loading loading-bars loading-xl"></span></p>;
 
   return (
     <section className="py-16 px-6 bg-gray-50 min-h-screen">
@@ -33,11 +31,7 @@ const AllJobs = () => {
       {jobs.length === 0 ? (
         <p className="text-center text-gray-600">No jobs available right now.</p>
       ) : (
-        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 px-6">
-        {jobs.map((job) => (
-          <JobCard key={job._id} job={job} />
-        ))}
-      </div>
+        <JobsGrid jobs={jobs} />
       )}
     </section>
   );

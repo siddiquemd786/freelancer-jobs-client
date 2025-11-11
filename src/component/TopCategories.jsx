@@ -1,3 +1,4 @@
+// src/component/TopCategories.jsx
 // src/components/TopCategories.jsx
 const categories = [
   {
