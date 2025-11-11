@@ -1,6 +1,7 @@
 // src/pages/AllJobs.jsx
 import { useEffect, useState, useContext, useMemo } from "react";
 import axios from "axios";
+import { motion } from "framer-motion";
 import { AuthContext } from "../context/AuthContext";
 import { Link } from "react-router";
 
@@ -10,49 +11,69 @@ const AllJobs = () => {
   const [sortOrder, setSortOrder] = useState("desc");
   const { user } = useContext(AuthContext);
 
-  // ✅ Fetch jobs from backend
   const fetchJobs = async () => {
     setLoading(true);
     try {
       const res = await axios.get("http://localhost:3000/alljobs");
-      // Ensure each job has valid postedDate
       const updatedJobs = res.data.map((job) => ({
         ...job,
-        postedDate: job.postedDate || new Date().toISOString(),
+        postedAt: job.postedAt || job.createdAt || new Date().toISOString(),
       }));
       setJobs(updatedJobs);
     } catch (err) {
-      console.error("Error fetching jobs:", err);
+      console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  // ✅ Delete a job
-  const handleDelete = async (id) => {
-    if (!window.confirm("Are you sure you want to delete this job?")) return;
-    try {
-      await axios.delete(`http://localhost:3000/alljobs/${id}`);
-      setJobs(jobs.filter((job) => job._id !== id));
-    } catch (err) {
-      console.error("Error deleting job:", err);
+const handleDelete = async (id) => {
+  try {
+    const confirmDelete = window.confirm("Are you sure you want to delete this job?");
+    if (!confirmDelete) return;
+
+    const response = await fetch(`http://localhost:3000/alljobs/${id}`, {
+      method: "DELETE",
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.message || "Failed to delete");
     }
-  };
+
+    alert("Job deleted successfully!");
+    setJobs(prev => prev.filter(job => job._id !== id));
+  } catch (error) {
+    console.error("Delete error:", error);
+    alert(error.message);
+  }
+};
+
 
   useEffect(() => {
     fetchJobs();
   }, []);
 
-  // ✅ Sorting logic (by postedDate)
   const sortedJobs = useMemo(() => {
     return [...jobs].sort((a, b) => {
-      const dateA = new Date(a.postedDate);
-      const dateB = new Date(b.postedDate);
+      const dateA = new Date(a.postedAt);
+      const dateB = new Date(b.postedAt);
       return sortOrder === "asc" ? dateA - dateB : dateB - dateA;
     });
   }, [jobs, sortOrder]);
 
   if (loading) return <p className="text-center py-20">Loading jobs...</p>;
+
+  // Motion variants for subtle animation
+  const fadeSlideVariant = {
+    hidden: { opacity: 0, y: 20 },
+    visible: (i) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.05, duration: 0.4, ease: "easeOut" },
+    }),
+  };
 
   return (
     <section className="py-16 px-4 bg-gray-50 min-h-screen">
@@ -80,21 +101,28 @@ const AllJobs = () => {
         <>
           {/* ✅ Desktop Table */}
           <div className="hidden md:block overflow-x-auto">
-            <table className="min-w-full bg-white border rounded-lg text-sm table-fixed">
+            <table className="min-w-full bg-white border rounded-lg text-sm">
               <thead>
                 <tr className="bg-indigo-100">
-                  <th className="w-[10%] px-3 py-2 text-left">Cover</th>
-                  <th className="w-[15%] px-3 py-2 text-left">Title</th>
-                  <th className="w-[15%] px-3 py-2 text-left">Category</th>
-                  <th className="w-[12%] px-3 py-2 text-left">Posted By</th>
-                  <th className="w-[12%] px-3 py-2 text-left">Date</th>
-                  <th className="w-[26%] px-3 py-2 text-left">Summary</th>
-                  <th className="w-[10%] px-3 py-2 text-left">Actions</th>
+                  <th className="px-3 py-2 text-left">Cover</th>
+                  <th className="px-3 py-2 text-left">Title</th>
+                  <th className="px-3 py-2 text-left">Category</th>
+                  <th className="px-3 py-2 text-left">Posted By</th>
+                  <th className="px-3 py-2 text-left">Date</th>
+                  <th className="px-3 py-2 text-left w-[180px]">Summary</th>
+                  <th className="px-3 py-2 text-left w-[200px]">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {sortedJobs.map((job) => (
-                  <tr key={job._id} className="border-t hover:bg-gray-50">
+                {sortedJobs.map((job, i) => (
+                  <motion.tr
+                    key={job._id}
+                    custom={i}
+                    variants={fadeSlideVariant}
+                    initial="hidden"
+                    animate="visible"
+                    className="border-t hover:bg-gray-50"
+                  >
                     <td className="px-3 py-2">
                       {job.coverImage ? (
                         <img
@@ -110,39 +138,35 @@ const AllJobs = () => {
                     <td className="px-3 py-2">{job.category}</td>
                     <td className="px-3 py-2">{job.postedBy}</td>
                     <td className="px-3 py-2 text-gray-500">
-                      {job.postedDate
-                        ? new Date(job.postedDate).toLocaleString("en-US", {
-                            dateStyle: "medium",
-                            timeStyle: "short",
-                          })
-                        : "No Date"}
+                      {new Date(job.postedAt).toLocaleString()}
                     </td>
+                    <td className="px-3 py-2">{job.summary?.slice(0, 60)}...</td>
                     <td className="px-3 py-2">
-                      {job.summary?.slice(0, 60) ?? ""}...
-                    </td>
-                    <td className="px-3 py-2">
-                      <div className="flex gap-1 whitespace-nowrap">
+                      <div className="flex gap-2 whitespace-nowrap">
                         <Link
                           to={`/update-job/${job._id}`}
-                          className="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700 text-xs"
+                          className="bg-green-600 text-white px-2 py-1 rounded hover:bg-green-700"
                         >
                           Edit
                         </Link>
-                        <button
-                          onClick={() => handleDelete(job._id)}
-                          className="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700 text-xs"
-                        >
-                          Delete
-                        </button>
+                      {user && (
+  <button
+    onClick={() => handleDelete(job._id)}
+    className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-700 text-sm"
+  >
+    Delete
+  </button>
+)}
+
                         <Link
                           to={`/alljobs/${job._id}`}
-                          className="bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700 text-xs"
+                          className="bg-indigo-600 text-white px-2 py-1 rounded hover:bg-indigo-700"
                         >
                           View
                         </Link>
                       </div>
                     </td>
-                  </tr>
+                  </motion.tr>
                 ))}
               </tbody>
             </table>
@@ -150,8 +174,15 @@ const AllJobs = () => {
 
           {/* ✅ Mobile Cards */}
           <div className="md:hidden grid gap-6">
-            {sortedJobs.map((job) => (
-              <div key={job._id} className="bg-white border rounded-lg p-4 shadow">
+            {sortedJobs.map((job, i) => (
+              <motion.div
+                key={job._id}
+                custom={i}
+                variants={fadeSlideVariant}
+                initial="hidden"
+                animate="visible"
+                className="bg-white border rounded-lg p-4 shadow"
+              >
                 {job.coverImage && (
                   <img
                     src={job.coverImage}
@@ -169,17 +200,9 @@ const AllJobs = () => {
                   <strong>Posted By:</strong> {job.postedBy}
                 </p>
                 <p className="text-gray-500 mb-1">
-                  <strong>Date:</strong>{" "}
-                  {job.postedDate
-                    ? new Date(job.postedDate).toLocaleString("en-US", {
-                        dateStyle: "medium",
-                        timeStyle: "short",
-                      })
-                    : "No Date"}
+                  <strong>Date:</strong> {new Date(job.postedAt).toLocaleString()}
                 </p>
-                <p className="text-gray-700 mb-3">
-                  {job.summary?.slice(0, 100)}...
-                </p>
+                <p className="text-gray-700 mb-3">{job.summary?.slice(0, 100)}...</p>
                 <div className="flex flex-wrap gap-2">
                   <Link
                     to={`/update-job/${job._id}`}
@@ -200,7 +223,7 @@ const AllJobs = () => {
                     View
                   </Link>
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
         </>

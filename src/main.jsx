@@ -17,6 +17,7 @@ import { Toaster } from "react-hot-toast";
 import AddJob from './pages/AddJobs.jsx';
 import UpdateJob from './component/UpdateJob.jsx';
 import ErrorPage from './component/ErrorPage.jsx';
+import { ThemeProvider } from './context/ThemeContext.jsx';
 
 
 const router = createBrowserRouter([
@@ -30,11 +31,11 @@ const router = createBrowserRouter([
         element: <Home />, 
       },
       {
-        path: 'login',
+        path: '/login',
         element: <Login />, 
       },
       {
-        path: 'register',
+        path: '/register',
         element: <Register />, 
       },
       {
@@ -86,10 +87,14 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
  
+ <ThemeProvider>
+     <AuthProvider>
 
- <AuthProvider>
+ 
    <RouterProvider router={router}></RouterProvider>
     <Toaster position="top-center" />
  </AuthProvider>
+  </ThemeProvider>
+
   </StrictMode>,
 )
