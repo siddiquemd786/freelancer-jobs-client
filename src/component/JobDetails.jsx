@@ -1,17 +1,16 @@
 // src/component/JobDetails.jsx
 import { useEffect, useState, useContext } from "react";
-
 import axios from "axios";
 import { AuthContext } from "../context/AuthContext";
 import { useNavigate, useParams } from "react-router";
-
 
 const JobDetails = () => {
   const { id } = useParams();
   const [job, setJob] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [accepting, setAccepting] = useState(false);
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext); // current logged-in user
+  const { user } = useContext(AuthContext);
 
   useEffect(() => {
     axios
@@ -34,23 +33,28 @@ const JobDetails = () => {
     }
 
     const acceptedTask = {
-      jobId: job._id,
-      title: job.title,
-      category: job.category,
-      summary: job.summary,
-      coverImage: job.coverImage,
-      postedBy: job.postedBy,
-      acceptedBy: user.email,
-      acceptedAt: new Date(),
-    };
+  jobId: job._id,
+  acceptedBy: user.email, // matches backend field
+  title: job.title,
+  category: job.category,
+  summary: job.summary,
+  coverImage: job.coverImage,
+  postedBy: job.postedBy,
+};
+
 
     try {
+      setAccepting(true);
       await axios.post("http://localhost:3000/acceptedTasks", acceptedTask);
+
       alert("Job accepted successfully!");
       navigate("/my-accepted-tasks");
     } catch (error) {
       console.error("Error accepting job:", error);
-      alert("Failed to accept job. Try again later.");
+      const msg = error.response?.data?.message || "Failed to accept job. Try again later.";
+      alert(msg);
+    } finally {
+      setAccepting(false);
     }
   };
 
@@ -88,9 +92,12 @@ const JobDetails = () => {
 
           <button
             onClick={handleAccept}
-            className="px-5 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition"
+            disabled={accepting}
+            className={`px-5 py-3 bg-indigo-600 text-white font-medium rounded-lg hover:bg-indigo-700 transition ${
+              accepting ? "opacity-70 cursor-not-allowed" : ""
+            }`}
           >
-            Accept Job
+            {accepting ? "Accepting..." : "Accept Job"}
           </button>
         </div>
       </div>
