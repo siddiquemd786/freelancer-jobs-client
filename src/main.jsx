@@ -13,6 +13,8 @@ import AllJobs from './pages/AllJobs.jsx';
 import MyAcceptedTasks from './component/MyAcceptedTasks.jsx';
 import JobDetails from './component/JobDetails.jsx';
 import PrivateRoute from './pages/PrivateRoute.jsx';
+import { Toaster } from "react-hot-toast";
+import AddJob from './pages/AddJobs.jsx';
 
 
 const router = createBrowserRouter([
@@ -47,9 +49,18 @@ const router = createBrowserRouter([
   element: (
     <PrivateRoute>
       <MyAcceptedTasks />
+
     </PrivateRoute>
   ),
-}
+},{
+  path: "/add-job",
+  element: (
+    <PrivateRoute>
+      <AddJob />
+    </PrivateRoute>
+  ),
+},
+
 
 
 
@@ -66,6 +77,7 @@ createRoot(document.getElementById('root')).render(
 
  <AuthProvider>
    <RouterProvider router={router}></RouterProvider>
+    <Toaster position="top-center" />
  </AuthProvider>
   </StrictMode>,
 )

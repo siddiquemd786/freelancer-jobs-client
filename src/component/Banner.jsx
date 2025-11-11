@@ -33,7 +33,7 @@ const Banner = () => {
         </p>
 
         <div className="flex justify-center gap-4">
-          <Link to="/create-job">
+          <Link to="/add-job">
             <button className="bg-white text-indigo-700 font-semibold px-6 py-3 rounded-full hover:bg-gray-200 transition-all">
               Create a Job
             </button>

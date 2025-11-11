@@ -1,102 +1,153 @@
-import React, { useContext, useState } from "react";
+// src/pages/AddJobs.jsx
+import { useContext, useState } from "react";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 import { AuthContext } from "../context/AuthContext";
 
-const AddJobs = () => {
+
+const AddJob = () => {
   const { user } = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
 
   const handleAddJob = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setSuccess(false);
 
     const form = e.target;
-    const title = form.title.value;
-    const category = form.category.value;
-    const description = form.description.value;
-    const budget = parseFloat(form.budget.value);
-    const image = form.image.value;
-    const email = user?.email || "guest@example.com";
-
-    const newJob = { title, category, description, budget, image, email };
+    const newJob = {
+      title: form.title.value,
+      postedBy: user?.displayName,
+      category: form.category.value,
+      summary: form.summary.value,
+      coverImage: form.coverImage.value,
+      userEmail: user?.email,
+      postedAt: new Date(),
+    };
 
     try {
-      const res = await fetch("http://localhost:3000/addJob", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(newJob),
-      });
-
-      if (res.ok) {
-        setSuccess(true);
+      const res = await axios.post("http://localhost:3000/alljobs", newJob);
+      if (res.data.insertedId) {
+        toast.success("✅ Job posted successfully!");
         form.reset();
+      } else {
+        toast.error("⚠️ Failed to post job. Try again.");
       }
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error("Error adding job:", err);
+      toast.error("❌ Something went wrong while posting.");
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white shadow-md rounded-lg mt-10">
-      <h2 className="text-2xl font-bold text-center text-indigo-700 mb-4">
+    <section className="max-w-3xl mx-auto py-16 px-6">
+      <h2 className="text-3xl font-bold mb-8 text-center text-indigo-700">
         Add a New Job
       </h2>
 
-      <form onSubmit={handleAddJob} className="space-y-4">
-        <input
-          type="text"
-          name="title"
-          placeholder="Job Title"
-          required
-          className="input input-bordered w-full"
-        />
-        <input
-          type="text"
-          name="category"
-          placeholder="Category"
-          required
-          className="input input-bordered w-full"
-        />
-        <input
-          type="number"
-          name="budget"
-          placeholder="Budget (USD)"
-          required
-          className="input input-bordered w-full"
-        />
-        <input
-          type="text"
-          name="image"
-          placeholder="Image URL"
-          required
-          className="input input-bordered w-full"
-        />
-        <textarea
-          name="description"
-          placeholder="Job Description"
-          required
-          className="textarea textarea-bordered w-full"
-        ></textarea>
+      <form
+        onSubmit={handleAddJob}
+        className="bg-white p-8 rounded-xl shadow-md space-y-6"
+      >
+        {/* Title */}
+        <div>
+          <label className="block mb-2 font-medium text-gray-700">Title</label>
+          <input
+            type="text"
+            name="title"
+            required
+            placeholder="Enter job title"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-400"
+          />
+        </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="btn btn-primary w-full bg-indigo-600 hover:bg-indigo-700 text-white"
-        >
-          {loading ? "Adding..." : "Add Job"}
-        </button>
+        {/* Posted By (auto-filled) */}
+        <div>
+          <label className="block mb-2 font-medium text-gray-700">
+            Posted By
+          </label>
+          <input
+            type="text"
+            name="postedBy"
+            value={user?.displayName || ""}
+            disabled
+            className="w-full border border-gray-200 bg-gray-100 rounded-lg px-4 py-2"
+          />
+        </div>
+
+        {/* Category dropdown */}
+        <div>
+          <label className="block mb-2 font-medium text-gray-700">
+            Category
+          </label>
+          <select
+            name="category"
+            required
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-400"
+          >
+            <option value="">Select category</option>
+            <option value="Web Development">Web Development</option>
+            <option value="Graphic Design">Graphic Design</option>
+            <option value="Content Writing">Content Writing</option>
+            <option value="Digital Marketing">Digital Marketing</option>
+            <option value="Mobile App">Mobile App</option>
+          </select>
+        </div>
+
+        {/* Summary */}
+        <div>
+          <label className="block mb-2 font-medium text-gray-700">Summary</label>
+          <textarea
+            name="summary"
+            rows="4"
+            required
+            placeholder="Write a short job description..."
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-400"
+          ></textarea>
+        </div>
+
+        {/* Cover Image URL */}
+        <div>
+          <label className="block mb-2 font-medium text-gray-700">
+            Cover Image URL
+          </label>
+          <input
+            type="url"
+            name="coverImage"
+            required
+            placeholder="https://example.com/image.jpg"
+            className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-indigo-400"
+          />
+        </div>
+
+        {/* Email (auto-filled) */}
+        <div>
+          <label className="block mb-2 font-medium text-gray-700">
+            User Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={user?.email || ""}
+            disabled
+            className="w-full border border-gray-200 bg-gray-100 rounded-lg px-4 py-2"
+          />
+        </div>
+
+        {/* Submit Button */}
+        <div className="text-center">
+          <button
+            type="submit"
+            disabled={loading}
+            className="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold px-6 py-3 rounded-lg transition disabled:opacity-50"
+          >
+            {loading ? "Posting..." : "Post Job"}
+          </button>
+        </div>
       </form>
-
-      {success && (
-        <p className="text-green-600 text-center mt-3">
-          ✅ Job added successfully!
-        </p>
-      )}
-    </div>
+    </section>
   );
 };
 
-export default AddJobs;
+export default AddJob;
