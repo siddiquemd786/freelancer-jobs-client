@@ -7,13 +7,15 @@ import Banner from "../component/Banner";
 const Home = () => {
   return (
     <>
-      <div >
+      <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white ">
+
 
         <Banner />
       <LatestJobs />
       <TopCategories />
       <AboutPlatform />
       </div>
+
     </>
   );
 };

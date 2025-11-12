@@ -1,7 +1,7 @@
 // src/main.jsx
 import { Children, Component, StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import './index.css'
+import './index.css' 
 import App from './App.jsx'
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import Root from './Root.jsx';
@@ -17,7 +17,8 @@ import { Toaster } from "react-hot-toast";
 import AddJob from './pages/AddJobs.jsx';
 import UpdateJob from './component/UpdateJob.jsx';
 import ErrorPage from './component/ErrorPage.jsx';
-import { ThemeProvider } from './context/ThemeContext.jsx';
+import { ThemeProvider } from './context/ThemeProvider.jsx';
+
 
 
 const router = createBrowserRouter([
@@ -87,14 +88,24 @@ const router = createBrowserRouter([
 createRoot(document.getElementById('root')).render(
   <StrictMode>
  
+
  <ThemeProvider>
+<AuthProvider>
+
+ 
+   <RouterProvider router={router}></RouterProvider>
+    <Toaster position="top-center" />
+ </AuthProvider>
+
+ </ThemeProvider>
+ {/* <ThemeProvider>
      <AuthProvider>
 
  
    <RouterProvider router={router}></RouterProvider>
     <Toaster position="top-center" />
  </AuthProvider>
-  </ThemeProvider>
+  </ThemeProvider> */}
 
   </StrictMode>,
 )

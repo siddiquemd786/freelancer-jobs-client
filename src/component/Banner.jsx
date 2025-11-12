@@ -12,7 +12,7 @@ const Banner = () => {
       className="relative h-[85vh] flex flex-col justify-center items-center text-center text-white overflow-hidden"
       style={{
         backgroundImage:
-          "url('https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=1600&q=80')",
+          "url('https://oyelabs.com/wp-content/uploads/2024/08/Top-Freelance-Marketplace-Apps-770x400.png')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}

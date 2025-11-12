@@ -69,7 +69,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center  mt-8 px-4">
-      <div className="bg-white shadow-2xl rounded-2xl p-8 w-full max-w-md border">
+      <div className=" shadow-2xl rounded-2xl p-8 w-full max-w-md border">
 
         <h2 className="text-3xl font-bold text-center mb-6 text-gray-800">
           Welcome Back 👋
@@ -133,8 +133,10 @@ const Login = () => {
           </button>
 
       
-          <div className="divider">OR</div>
-          <button
+          <div className="divider text-white">OR</div>
+
+      <div className="text-white">
+            <button
             onClick={handleGoogleSignIn}
             type="button"
             className="btn btn-outline w-full flex items-center gap-2"
@@ -143,10 +145,11 @@ const Login = () => {
             Continue with Google
           </button>
 
+      </div>
         
-          <p className="text-center text-gray-500 mt-4">
+          <p className="text-center text-white mt-4">
             New here?{" "}
-            <Link to="/register" className="text-blue-600 hover:underline">
+            <Link to="/register" className="text-white hover:underline">
               Create an account
             </Link>
           </p>

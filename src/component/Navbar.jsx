@@ -1,6 +1,6 @@
 // src/component/Navbar.jsx
 import { Link, NavLink } from "react-router";
-import React, { useContext, useState } from "react";
+import React, { useContext,  useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ThemeContext } from "../context/ThemeContext";
 
@@ -9,7 +9,12 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   // ✅ Use toggleTheme from context
-  const { theme, toggleTheme } = useContext(ThemeContext);
+ 
+
+   const { theme, toggleTheme } = useContext(ThemeContext);
+
+ 
+
 
   const handleLogout = () => {
     logOut()
@@ -26,9 +31,10 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-gradient-to-r from-[#030B18] to-[#081C34] shadow-lg sticky top-0 z-50 text-white">
+    <nav className="fixed w-full top-0 z-50 shadow-lg transition-colors duration-500
+  bg-white text-gray-900 dark:bg-gray-900 dark:text-white">
       <div className="max-w-7xl mx-auto flex justify-between items-center px-6 py-4">
-        <Link to="/" className="text-2xl font-extrabold text-[#00C4FF]"> <img className="w-10 h-10 rounded-full" src="https://logomakerr.ai/uploads/output/2020/02/01/b6102a2551c0b3cd2c13daaeab843f50.jpg" alt="" />  </Link>
+        <Link to="/" className="text-2xl font-extrabold text-[#00C4FF]"> <img className="w-10 h-10 rounded-full" src="https://static.vecteezy.com/system/resources/previews/005/532/814/non_2x/creative-market-and-place-logo-modern-business-company-vector.jpg" alt="img" />  </Link>
 
         <div className="hidden md:flex items-center bg-[#0B223D]/80 rounded-full px-6 py-2 shadow-inner">
           {navItems.map((item) => (
@@ -62,9 +68,12 @@ export default function Navbar() {
           {/* Desktop buttons */}
           <div className="hidden md:flex md:items-center gap-2">
             {/* Theme toggle */}
-         <button onClick={toggleTheme} className="btn btn-square btn-ghost">
-  {theme === "light" ? "🌙" : "☀️"}
-</button>
+    <button
+        onClick={toggleTheme}
+        className="px-3 py-2 rounded-md bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-100"
+      >
+        {theme === "light" ? "🌙 Dark" : "☀️ Light"}
+      </button>
 
             {user ? (
               <>
