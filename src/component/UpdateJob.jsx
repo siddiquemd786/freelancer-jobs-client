@@ -55,7 +55,7 @@ const UpdateJob = () => {
   if (loading) return <p className="text-center py-20">Loading job details...</p>;
 
   return (
-    <section className="max-w-3xl mx-auto py-16 px-6">
+    <section className="max-w-3xl mx-auto py-24 px-6">
       <h2 className="text-3xl font-bold mb-8 text-center text-indigo-700">
         Update Job
       </h2>

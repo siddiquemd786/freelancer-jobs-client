@@ -1,3 +1,4 @@
+// src/component/MyAcceptedTasks.jsx
 
 import { useState, useEffect, useContext } from "react";
 import axios from "axios";
@@ -46,7 +47,7 @@ const MyAcceptedTasks = () => {
     return <p className="text-center py-20">Loading accepted tasks...</p>;
 
   return (
-    <section className="py-16 px-6 bg-gray-50 min-h-screen">
+    <section className="py-24 px-6 bg-gray-50 min-h-screen">
       <h2 className="text-3xl font-bold text-center mb-10 text-indigo-700">
         My Accepted Tasks
       </h2>

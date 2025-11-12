@@ -1,6 +1,4 @@
 // src/component/Banner.jsx
-// src/components/Banner.jsx
-
 import { Link } from "react-router";
 import { motion } from "framer-motion";
 
@@ -17,7 +15,7 @@ const Banner = () => {
         backgroundPosition: "center",
       }}
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-indigo-800/80 to-blue-700/80 backdrop-blur-sm"></div>
+      <div className="absolute inset-0 bg-gradient-to-r from-indigo-800/80 to-blue-700/80 "></div>
 
       <motion.div
         className="relative z-10 px-6"

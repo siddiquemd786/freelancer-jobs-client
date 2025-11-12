@@ -1,23 +1,28 @@
-/** @type {import('tailwindcss').Config} */
+// tailwind.config.js
+import daisyui from "daisyui";
+import themes from "daisyui/src/theming/themes.js";
+
 export default {
-  darkMode: 'class', // ✅ use class-based dark mode
   content: [
     "./index.html",
-    "./src/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
+  darkMode: "class", // ✅ IMPORTANT
   theme: {
     extend: {},
   },
-  plugins: [require("daisyui")],
+  plugins: [daisyui],
   daisyui: {
     themes: [
       {
         light: {
-          ...require("daisyui/src/colors/themes")["[data-theme=light]"],
+          ...themes["light"],
+        },
+        dark: {
+          ...themes["dark"],
         },
       },
-      "dark", // default dark theme
     ],
-    darkTheme: "dark", // specify which theme is dark
+    darkTheme: "dark",
   },
-}
+};

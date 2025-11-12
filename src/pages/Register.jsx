@@ -1,3 +1,4 @@
+// src/pages/Register.jsx
 import { useContext, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router";
@@ -66,8 +67,8 @@ const Register = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 mt-10 px-4">
-      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center  mt-10 px-4">
+      <div className=" shadow-lg border border-amber-50 rounded-2xl p-8 w-full max-w-md">
         {/* 🔹 Title */}
         <h2 className="text-3xl font-semibold text-center  text-gray-800">
           Sign Up

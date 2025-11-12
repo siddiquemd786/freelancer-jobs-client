@@ -1,35 +1,34 @@
 // src/context/ThemeProvider.jsx
-import {  useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ThemeContext } from "./ThemeContext";
 
-
-
 export const ThemeProvider = ({ children }) => {
-  const [theme, setTheme] = useState(() => {
-    // get theme from localStorage or default to 'light'
-    return localStorage.getItem("theme") || "light";
-  });
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") || "light"
+  );
 
-  // update HTML tag class when theme changes
   useEffect(() => {
     const root = window.document.documentElement;
-    if (theme === "dark") {
-      root.classList.add("dark");
-    } else {
-      root.classList.remove("dark");
-    }
+
+    // Remove old theme classes
+    root.classList.remove("light", "dark");
+
+    // Add the new one
+    root.classList.add(theme);
+
+    // ✅ Apply to DaisyUI as well
+    root.setAttribute("data-theme", theme);
+
+    // Save preference
     localStorage.setItem("theme", theme);
   }, [theme]);
 
   const toggleTheme = () =>
-    setTheme(theme === "light" ? "dark" : "light");
+    setTheme((prev) => (prev === "light" ? "dark" : "light"));
 
   return (
-
-    <ThemeContext value={{ theme, toggleTheme }} >
+    <ThemeContext.Provider value={{ theme, toggleTheme }}>
       {children}
-
-    </ThemeContext>
-    
+    </ThemeContext.Provider>
   );
 };

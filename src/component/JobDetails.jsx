@@ -62,7 +62,7 @@ const JobDetails = () => {
   if (!job) return <p className="text-center py-20">Job not found.</p>;
 
   return (
-    <section className="max-w-5xl mx-auto py-16 px-6 bg-white rounded-xl shadow-sm">
+    <section className="max-w-5xl mx-auto py-32 px-6 bg-white rounded-xl shadow-sm">
       {/* Cover image */}
       <div className="w-full h-64 mb-8 overflow-hidden rounded-lg">
         <img

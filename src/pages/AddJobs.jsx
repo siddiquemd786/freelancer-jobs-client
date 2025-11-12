@@ -41,7 +41,7 @@ const AddJob = () => {
   };
 
   return (
-    <section className="max-w-3xl mx-auto py-16 px-6">
+    <section className="max-w-3xl mx-auto py-24 px-6">
       <h2 className="text-3xl font-bold mb-8 text-center text-indigo-700">
         Add a New Job
       </h2>

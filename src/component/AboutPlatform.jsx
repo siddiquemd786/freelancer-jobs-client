@@ -1,3 +1,4 @@
+// src/component/AboutPlatform.jsx
 // src/components/AboutPlatform.jsx
 const AboutPlatform = () => {
   return (
