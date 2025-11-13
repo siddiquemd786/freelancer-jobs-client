@@ -1,16 +1,11 @@
-# React + Vite
+💼 Key Features of the Freelancer Marketplace App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+🧑‍💻 Job Posting System – Users can easily create and post freelance jobs with title, category, budget, and detailed descriptions.
 
-Currently, two official plugins are available:
+⚡ Job Acceptance Feature – Freelancers can view available jobs and accept them instantly, with real-time updates.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+📊 Dashboard for Accepted Tasks – Each user can track their accepted jobs and mark them as “Done” or “Cancel.”
 
-## React Compiler
+🌙 Dark/Light Theme Toggle – Seamless UI switch between light and dark mode for better user experience.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+🔐 Firebase Authentication – Secure login and registration using Firebase (Email/Password or Google sign-in).
