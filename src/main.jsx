@@ -98,14 +98,7 @@ createRoot(document.getElementById('root')).render(
  </AuthProvider>
 
  </ThemeProvider>
- {/* <ThemeProvider>
-     <AuthProvider>
-
  
-   <RouterProvider router={router}></RouterProvider>
-    <Toaster position="top-center" />
- </AuthProvider>
-  </ThemeProvider> */}
 
   </StrictMode>,
 )

@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const Banner = () => {
   return (
     <section
-      className="relative h-[85vh] flex flex-col justify-center items-center text-center text-white overflow-hidden"
+      className="relative h-[85vh]  bg-gray-50 dark:bg-[#081C34] min-h-screen text-gray-800 dark:text-gray-100 transition-all duration-500 flex flex-col justify-center items-center text-center  overflow-hidden"
       style={{
         backgroundImage:
           "url('https://oyelabs.com/wp-content/uploads/2024/08/Top-Freelance-Marketplace-Apps-770x400.png')",
@@ -26,13 +26,13 @@ const Banner = () => {
         <h1 className="text-4xl md:text-6xl font-extrabold mb-6">
           Reliable Freelance Marketplace
         </h1>
-        <p className="text-lg md:text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
+        <p className="text-lg md:text-xl  font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-indigo-700 transition-all mb-8 max-w-2xl mx-auto">
           Connect with trusted clients and freelancers. Post jobs, collaborate, and earn — all in one secure platform.
         </p>
 
         <div className="flex justify-center gap-4">
           <Link to="/add-job">
-            <button className="bg-white text-indigo-700 font-semibold px-6 py-3 rounded-full hover:bg-gray-200 transition-all">
+            <button className="border-2 border-white font-semibold px-6 py-3 rounded-full hover:bg-white hover:text-indigo-700 transition-all">
               Create a Job
             </button>
           </Link>

@@ -48,7 +48,7 @@ const AddJob = () => {
 
       <form
         onSubmit={handleAddJob}
-        className="bg-white p-8 rounded-xl shadow-md space-y-6"
+        className="bg-gray-50 dark:bg-[#081C34] border border-amber-300  text-gray-800 dark:text-gray-100 transition-all duration-500 p-8 rounded-xl shadow-md space-y-6"
       >
         {/* Title */}
         <div>
@@ -72,7 +72,7 @@ const AddJob = () => {
             name="postedBy"
             value={user?.displayName || ""}
             disabled
-            className="w-full border border-gray-200 bg-gray-100 rounded-lg px-4 py-2"
+            className="w-full border border-gray-200  rounded-lg px-4 py-2"
           />
         </div>
 
@@ -131,7 +131,7 @@ const AddJob = () => {
             name="email"
             value={user?.email || ""}
             disabled
-            className="w-full border border-gray-200 bg-gray-100 rounded-lg px-4 py-2"
+            className="w-full border border-gray-200  rounded-lg px-4 py-2"
           />
         </div>
 

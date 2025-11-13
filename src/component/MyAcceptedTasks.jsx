@@ -47,7 +47,7 @@ const MyAcceptedTasks = () => {
     return <p className="text-center py-20">Loading accepted tasks...</p>;
 
   return (
-    <section className="py-24 px-6 bg-gray-50 min-h-screen">
+    <section className="py-24 px-6 bg-gray-50 dark:bg-[#081C34]  text-gray-800 dark:text-gray-100 transition-all duration-500 min-h-screen">
       <h2 className="text-3xl font-bold text-center mb-10 text-indigo-700">
         My Accepted Tasks
       </h2>
@@ -55,11 +55,11 @@ const MyAcceptedTasks = () => {
       {tasks.length === 0 ? (
         <p className="text-center text-gray-600">No accepted tasks yet.</p>
       ) : (
-        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 px-6">
+        <div className="grid md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-6 px-6 ">
           {tasks.map((task) => (
             <div
               key={task._id}
-              className="bg-white rounded-xl shadow-md overflow-hidden p-4 space-y-2 transition hover:scale-105 duration-200"
+              className=" bg-gray-50 dark:bg-[#081C34]  text-gray-800 dark:text-gray-100 rounded-xl shadow-md overflow-hidden p-4 space-y-2 transition hover:scale-105 duration-200"
             >
               <img
                 src={

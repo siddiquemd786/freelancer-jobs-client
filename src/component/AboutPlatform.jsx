@@ -2,7 +2,7 @@
 // src/components/AboutPlatform.jsx
 const AboutPlatform = () => {
   return (
-    <section className="bg-indigo-50 py-16 px-6 text-center">
+    <section className=" bg-gray-50 dark:bg-[#081C34] text-gray-800 dark:text-gray-100 transition-all duration-500 py-16 px-6 text-center">
       <h2 className="text-3xl font-bold mb-6 text-indigo-700">
         About Freelance Marketplace
       </h2>

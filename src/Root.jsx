@@ -6,7 +6,7 @@ import Navbar from "./component/Navbar";
 
 const Root = () => {
   return (
-    <div className="flex flex-col min-h-screen bg-white text-black dark:bg-[#030B18] dark:text-white transition-all duration-500">
+    <div className="flex flex-col min-h-screen ">
       <header>
         <Navbar />
       </header>

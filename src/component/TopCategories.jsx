@@ -21,7 +21,7 @@ const categories = [
 
 const TopCategories = () => {
   return (
-    <section className="py-16 bg-white px-6">
+    <section className="py-16 bg-gray-50 dark:bg-[#081C34]  text-gray-800 dark:text-gray-100 transition-all duration-500 px-6">
       <h2 className="text-3xl font-bold text-center mb-10 text-indigo-700">
         Top Categories
       </h2>

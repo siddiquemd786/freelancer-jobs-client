@@ -14,7 +14,7 @@ const LatestJobs = () => {
   }, []);
 
   return (
-    <section className="py-16 px-6 bg-gray-50">
+    <section className="py-16 px-6 bg-gray-50 dark:bg-[#081C34] min-h-screen text-gray-800 dark:text-gray-100 transition-all duration-500">
       <h2 className="text-3xl font-bold text-center mb-10 text-indigo-700">
         Latest Jobs
       </h2>
