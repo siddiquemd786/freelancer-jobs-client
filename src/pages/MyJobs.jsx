@@ -6,7 +6,7 @@ const MyJobs = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/myAddedJobs?email=${user?.email}`)
+    fetch(`https://freelancer-jobs-server.vercel.app/myAddedJobs?email=${user?.email}`)
       .then((res) => res.json())
       .then((data) => setJobs(data));
   }, [user]);
@@ -14,7 +14,7 @@ const MyJobs = () => {
   const handleDelete = async (id) => {
     if (!window.confirm("Are you sure you want to delete this job?")) return;
 
-    await fetch(`http://localhost:3000/deleteJob/${id}`, { method: "DELETE" });
+    await fetch(`https://freelancer-jobs-server.vercel.app/deleteJob/${id}`, { method: "DELETE" });
     setJobs(jobs.filter((job) => job._id !== id));
   };
 

@@ -6,7 +6,7 @@ export default function Home() {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/alljobs")
+    axios.get("https://freelancer-jobs-server.vercel.app/alljobs")
       .then(res => setJobs(res.data))
       .catch(err => console.error(err));
   }, []);

@@ -14,7 +14,7 @@ const JobDetails = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/alljobs/${id}`)
+      .get(`https://freelancer-jobs-server.vercel.app/alljobs/${id}`)
       .then((res) => {
         setJob(res.data);
         setLoading(false);
@@ -45,7 +45,7 @@ const JobDetails = () => {
 
     try {
       setAccepting(true);
-      await axios.post("http://localhost:3000/acceptedTasks", acceptedTask);
+      await axios.post("https://freelancer-jobs-server.vercel.app/acceptedTasks", acceptedTask);
 
       alert("Job accepted successfully!");
       navigate("/my-accepted-tasks");

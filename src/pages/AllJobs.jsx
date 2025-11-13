@@ -14,7 +14,7 @@ const AllJobs = () => {
   const fetchJobs = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("http://localhost:3000/alljobs");
+      const res = await axios.get("https://freelancer-jobs-server.vercel.app/alljobs");
       const updatedJobs = res.data.map((job) => ({
         ...job,
         postedAt: job.postedAt || job.createdAt || new Date().toISOString(),
@@ -32,7 +32,7 @@ const AllJobs = () => {
       const confirmDelete = window.confirm("Are you sure you want to delete this job?");
       if (!confirmDelete) return;
 
-      const response = await fetch(`http://localhost:3000/alljobs/${id}`, {
+      const response = await fetch(`https://freelancer-jobs-server.vercel.app/alljobs/${id}`, {
         method: "DELETE",
       });
 

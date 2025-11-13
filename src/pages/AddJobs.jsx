@@ -25,7 +25,7 @@ const AddJob = () => {
     };
 
     try {
-      const res = await axios.post("http://localhost:3000/alljobs", newJob);
+      const res = await axios.post("https://freelancer-jobs-server.vercel.app/alljobs", newJob);
       if (res.data.insertedId) {
         toast.success("✅ Job posted successfully!");
         form.reset();

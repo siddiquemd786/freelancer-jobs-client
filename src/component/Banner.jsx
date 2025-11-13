@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 const Banner = () => {
   return (
     <section
-      className="relative h-[85vh]  bg-gray-50 dark:bg-[#081C34] min-h-screen text-gray-800 dark:text-gray-100 transition-all duration-500 flex flex-col justify-center items-center text-center  overflow-hidden"
+      className="relative h-[65vh]  bg-gray-50 dark:bg-[#081C34]  text-gray-800 dark:text-gray-100 transition-all duration-500 flex flex-col justify-center items-center text-center  overflow-hidden"
       style={{
         backgroundImage:
           "url('https://oyelabs.com/wp-content/uploads/2024/08/Top-Freelance-Marketplace-Apps-770x400.png')",

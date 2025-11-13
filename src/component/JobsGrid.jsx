@@ -10,7 +10,7 @@ const JobsGrid = ({ job, refreshJobs, user }) => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:3000/alljobs/${job._id}`);
+      await axios.delete(`https://freelancer-jobs-server.vercel.app/alljobs/${job._id}`);
       toast.success("✅ Job deleted successfully!");
       refreshJobs();
     } catch (error) {

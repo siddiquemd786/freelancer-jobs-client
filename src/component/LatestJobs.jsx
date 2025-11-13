@@ -8,7 +8,7 @@ const LatestJobs = () => {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:3000/jobs?limit=6")
+    fetch("https://freelancer-jobs-server.vercel.app/jobs?limit=6")
       .then(res => res.json())
       .then(data => setJobs(data));
   }, []);

@@ -7,7 +7,7 @@ const EditJobs = () => {
   const [job, setJob] = useState(null);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/allJobs/${id}`)
+    fetch(`https://freelancer-jobs-server.vercel.app/allJobs/${id}`)
       .then((res) => res.json())
       .then((data) => setJob(data));
   }, [id]);
@@ -24,7 +24,7 @@ const EditJobs = () => {
       description: form.description.value,
     };
 
-    await fetch(`http://localhost:3000/updateJob/${id}`, {
+    await fetch(`https://freelancer-jobs-server.vercel.app/updateJob/${id}`, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(updatedJob),

@@ -14,7 +14,7 @@ const MyAcceptedTasks = () => {
     setLoading(true);
     try {
       const res = await axios.get(
-        `http://localhost:3000/myAcceptedTasks?email=${user.email}`
+        `https://freelancer-jobs-server.vercel.app/myAcceptedTasks?email=${user.email}`
       );
       setTasks(res.data);
     } catch (err) {
@@ -32,7 +32,7 @@ const MyAcceptedTasks = () => {
   // Handle DONE or CANCEL (removes task)
   const handleAction = async (taskId, actionType) => {
     try {
-      await axios.delete(`http://localhost:3000/acceptedTasks/${taskId}`);
+      await axios.delete(`https://freelancer-jobs-server.vercel.app/acceptedTasks/${taskId}`);
       setTasks((prev) => prev.filter((task) => task._id !== taskId));
       toast.success(
         actionType === "done" ? "✅ Task marked as done!" : "❌ Task cancelled!"

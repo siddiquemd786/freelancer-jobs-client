@@ -17,7 +17,7 @@ const UpdateJob = () => {
  
   useEffect(() => {
     axios
-      .get(`http://localhost:3000/alljobs/${id}`)
+      .get(`https://freelancer-jobs-server.vercel.app/alljobs/${id}`)
       .then((res) => {
         setJob(res.data);
         setLoading(false);
@@ -41,7 +41,7 @@ const UpdateJob = () => {
     };
 
     try {
-      await axios.put(`http://localhost:3000/alljobs/${id}`, updatedJob);
+      await axios.put(`https://freelancer-jobs-server.vercel.app/alljobs/${id}`, updatedJob);
       toast.success("✅ Job updated successfully!");
       navigate("/alljobs"); // Redirect after update
     } catch (error) {
